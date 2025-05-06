@@ -1,3 +1,8 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
 group 'com.example.installplugin'
 version '1.0-SNAPSHOT'
 
@@ -7,34 +12,24 @@ buildscript {
         google()
         mavenCentral()
     }
-
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-rootProject.allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
 android {
     compileSdkVersion 28
     namespace 'com.example.installplugin'
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
     defaultConfig {
         minSdkVersion 16
+        targetSdkVersion 28
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     compileOptions {
@@ -42,13 +37,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // ✅ This is the correct location for jvmTarget under android + Kotlin plugin
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
     lintOptions {
         disable 'InvalidPackage'
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
